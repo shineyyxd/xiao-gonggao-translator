@@ -1,0 +1,21 @@
+# 密钥与环境（绝不入库）
+.env
+**/.env
+
+# Python 虚拟环境与缓存
+pipeline/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# sqlite 数据库（错误日志/runs/agent_calls 为本地运行状态）
+pipeline/data/*.db*
+
+# 巨潮抓取缓存快照
+pipeline/data/cache/
+
+# TTS 音频二进制
+产出/*/audio/*.mp3
