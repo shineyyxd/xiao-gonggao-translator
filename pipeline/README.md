@@ -31,7 +31,7 @@ Orchestrator 和 Memory 是确定性代码（不用 LLM）；LLM 只用于 Write
 | Writer | generator.py | **是** | 三段式人话稿生成（契约受控） |
 | Compliance | compliance.py + precheck.py | 否 | 禁词、数字原值、关键限定、无锚点分句 |
 | Checker | reviewer.py | **是**（独立配置） | 通过/打回 + 错误清单 |
-| Publisher | render.py + tts.py + push.py | 否 | HTML/音频/推送/告警兜底 |
+| Publisher | render.py + broadcast.py + tts.py + push.py | 否 | HTML/口播稿/音频/推送/告警兜底 |
 
 ## 快速开始
 
@@ -243,7 +243,8 @@ pipeline/
 ├── compliance.py        ← 禁词表与荐股丢弃
 ├── error_log.py         ← sqlite（error_log/runs/agent_calls）+ 日报
 ├── render.py            ← 大字版 HTML（正文≥20px，查证链接 14px 淡色标注"查证用（可忽略）"）+ 简版页
-├── tts.py / push.py     ← Publisher：音频、推送、告警、兜底落盘
+├── broadcast.py         ← 口播稿：文字稿→朗读文本（数字中文化保精度/绝不念链接长名英文）
+├── tts.py / push.py     ← Publisher：单条+整期合并音频、推送、告警、兜底落盘
 ├── data_layer.py        ← 样本加载/快讯/热点/akshare 可选
 ├── llm_client.py        ← OpenAI 兼容客户端
 ├── config.py            ← 路径、环境变量、prompt 版本 hash

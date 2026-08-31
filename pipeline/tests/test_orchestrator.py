@@ -191,7 +191,7 @@ class TestContract:
         assert {"fetcher", "editor", "writer", "checker", "compliance", "memory"} <= agents
 
     def test_审计jsonl双写(self, sandbox, monkeypatch):
-        monkeypatch.setattr(tts, "synthesize", lambda items, out_dir: ([], []))
+        monkeypatch.setattr(tts, "synthesize", lambda items, out_dir, **kw: ([], []))
         summary = _run("2026-08-26", sandbox, source="sample", no_tts=False)
         out_root, _db = sandbox
         audit_files = list((out_root / "2026-08-26").glob("audit_*.jsonl"))

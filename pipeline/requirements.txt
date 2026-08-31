@@ -1,4 +1,5 @@
 requests>=2.31
 edge-tts>=6.1
 pypdf>=4.0
+mutagen>=1.46
 pytest>=8.0

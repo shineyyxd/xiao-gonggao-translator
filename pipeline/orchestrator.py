@@ -412,8 +412,13 @@ class Orchestrator:
         if not self.no_tts:
             import tts
             t0 = time.perf_counter()
-            audio_paths, tts_failures = tts.synthesize(items, self.out_dir / "audio")
-            audit.record("publisher", input_summary=f"TTS {len(items)} 条",
+            audio_paths, tts_failures = tts.synthesize(
+                items, self.out_dir / "audio", run_date=self.run_date)
+            # 口播稿全文落盘（老人实际听到的每一个字，供人工听测核对）
+            import broadcast
+            (self.out_dir / f"口播稿_{self.run_date}.txt").write_text(
+                broadcast.issue_script(self.run_date, items), encoding="utf-8")
+            audit.record("publisher", input_summary=f"TTS {len(items)} 条+整期合并",
                          output_summary=f"成功 {len(audio_paths)}，失败 {len(tts_failures)}",
                          conclusion="OK" if not tts_failures else "DEGRADED",
                          elapsed_ms=(time.perf_counter() - t0) * 1000)
